@@ -1,0 +1,31 @@
+{
+  "package": "@ibm/plex-sans-condensed",
+  "version": "2.0.0",
+  "license": "OFL-1.1",
+  "repository": {
+    "url": "git+https://github.com/ibm/plex.git",
+    "type": "git"
+  },
+  "gitHead": "bb3ab6404e1881ea286f8742dc839e09057db6dd",
+  "tarball": "https://registry.npmjs.org/@ibm/plex-sans-condensed/-/plex-sans-condensed-2.0.0.tgz",
+  "tarballSha256": "1daf6d3e89def24b38e86bc859335cb89b02a395e5f93e3a2371f82a54a27338",
+  "matches": [
+    {
+      "member": "package/fonts/complete/woff2/IBMPlexSansCondensed-Regular.woff2",
+      "sha256": "a71a56e516751883cb7877112d39f9c13b92c2dc15caaf00277b7f9d941d673a",
+      "matchesLocal": true
+    },
+    {
+      "member": "package/fonts/complete/woff2/IBMPlexSansCondensed-Medium.woff2",
+      "sha256": "eb93da02ace70c39e4c4e811b8b02dd5f5d4804d186202d6668bea60d22f57d0",
+      "matchesLocal": true
+    },
+    {
+      "member": "package/LICENSE.txt",
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "matchesLocal": false,
+      "matchesAfterLineEndingNormalization": true,
+      "localSha256": "37784b44044a4ffd9256702b7c0982c37e5c8887ba90c6dca0479aea93dc898d"
+    }
+  ]
+}

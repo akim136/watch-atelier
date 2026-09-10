@@ -1,304 +1,155 @@
-import * as THREE from "three";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { type Design } from "../domain/model";
-import { buildWatch } from "./watch";
-import type { WatchAsset } from "./contract";
-import { createDialArtwork } from "./dial";
-import { loadFonts, renderManifest } from "./resources";
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { type Design } from '../domain/model';
+import { buildWatch, identityKey, renderSnapshot, type WatchModel } from './watch';
+import { loadFonts, renderManifest, contentHash, FONT_FAMILY } from './resources';
+import { createStudio, presets, type Preset, type CameraState } from './studio';
+export { presets, type Preset, type CameraState } from './studio';
 
-export type Preset = "Oblique" | "Front" | "Profile" | "Detail";
-export type CameraState = {
-  position: number[];
-  target: number[];
-  zoom: number;
-};
-export const presets: Record<Preset, CameraState> = {
-  Oblique: { position: [35, 40, 115], target: [0, 0, 0], zoom: 1 },
-  Front: { position: [0, 0, 130], target: [0, 0, 0], zoom: 1 },
-  Profile: { position: [100, 28, 12], target: [0, 0, 0], zoom: 1.15 },
-  Detail: { position: [18, 25, 110], target: [0, 1, 3], zoom: 2.15 },
-};
-export const sameCamera = (a: CameraState, b: CameraState) =>
-  Math.abs(a.zoom - b.zoom) < 1e-8 &&
-  a.position.every((n, i) => Math.abs(n - b.position[i]) < 1e-8) &&
-  a.target.every((n, i) => Math.abs(n - b.target[i]) < 1e-8);
 export class WatchViewport {
   readonly renderer: THREE.WebGLRenderer;
-  readonly scene = new THREE.Scene();
-  readonly camera = new THREE.PerspectiveCamera(40, 1, 0.1, 500);
+  readonly scene=new THREE.Scene();
+  readonly camera=new THREE.PerspectiveCamera(40,1,.1,500);
   readonly controls: OrbitControls;
-  private model?: WatchAsset;
-  private artwork = createDialArtwork();
-  private modelKey = "";
-  private environment: THREE.WebGLRenderTarget;
-  private applyingCamera = false;
-  private contextLost = false;
+  private model?: WatchModel;
+  private studio?: ReturnType<typeof createStudio>;
   private observer?: ResizeObserver;
-  private disposed = false;
+  private disposed=false;
+  private contextLost=false;
   private design?: Design;
-  private latestInput?: Design;
-  private ready = false;
-  private fontFailure = "";
-  private requested = 0;
-  private presetName: Preset = "Oblique";
-  private pointer?: [number, number];
-  private change = () => {
+  private inputHash='';
+  private ready=false;
+  private fontFailure='';
+  private requested=0;
+  private presetName: Preset|'Custom'='Oblique';
+  private pointer?: [number,number];
+  private settingCamera=false;
+  onCamera?: (state: CameraState)=>void;
+
+  private change=()=>{
+    if(this.settingCamera)return;
+    this.presetName='Custom';
     this.render();
-    if (!this.applyingCamera) this.onCamera?.(this.cameraState());
+    this.onCamera?.(this.cameraState());
   };
-  private down = (e: PointerEvent) => {
-    this.pointer = [e.clientX, e.clientY];
+  private down=(event: PointerEvent)=>{this.pointer=[event.clientX,event.clientY];};
+  private up=(event: PointerEvent)=>{
+    const start=this.pointer;this.pointer=undefined;
+    if(!start||Math.hypot(event.clientX-start[0],event.clientY-start[1])>4||!this.model)return;
+    const rect=this.canvas.getBoundingClientRect();
+    if(rect.width<1||rect.height<1)return;
+    const ray=new THREE.Raycaster();
+    ray.setFromCamera(new THREE.Vector2((event.clientX-rect.left)/rect.width*2-1,-(event.clientY-rect.top)/rect.height*2+1),this.camera);
+    const hit=ray.intersectObjects(this.model.selectables)[0];
+    if(hit)this.onSelect?.(hit.object.userData.semanticId);
   };
-  private up = (e: PointerEvent) => {
-    if (
-      !this.pointer ||
-      Math.hypot(e.clientX - this.pointer[0], e.clientY - this.pointer[1]) >
-        4 ||
-      !this.model
-    )
-      return;
-    const rect = this.canvas.getBoundingClientRect();
-    const ray = new THREE.Raycaster();
-    ray.setFromCamera(
-      new THREE.Vector2(
-        ((e.clientX - rect.left) / rect.width) * 2 - 1,
-        (-(e.clientY - rect.top) / rect.height) * 2 + 1,
-      ),
-      this.camera,
-    );
-    const hits = ray
-      .intersectObjects([...this.model.pickables])
-      .filter(
-        (h) =>
-          h.object.userData.semanticId !==
-          this.design?.components.find((c) => c.role === "crystal")?.id,
-      );
-    const hit = hits[0];
-    if (hit) this.onSelect?.(hit.object.userData.semanticId);
+  private cancel=()=>{this.pointer=undefined;};
+  private lost=(event: Event)=>{
+    event.preventDefault();this.contextLost=true;this.ready=false;++this.requested;
+    this.onStatus?.('3D context lost. Your design is preserved. Recreate the viewport to restore rendering.');
   };
-  private lost = (event: Event) => {
-    event.preventDefault();
-    this.contextLost = true;
-    this.ready = false;
-    this.onStatus?.(this.contextWarning);
-  };
-  private get contextWarning() {
-    return this.contextLost || this.renderer.getContext().isContextLost()
-      ? "3D context lost. Your design is preserved. Waiting for recovery; reload if the viewport does not return."
-      : "";
-  }
-  private createEnvironment() {
-    const env = new RoomEnvironment();
-    const pmrem = new THREE.PMREMGenerator(this.renderer);
+
+  constructor(readonly canvas: HTMLCanvasElement,private onSelect?: (id:string)=>void,
+    private onStatus?: (message:string)=>void,exporting=false) {
+    // Match the live and export multisample/readback path. Export renders immediately before toBlob.
+    this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,preserveDrawingBuffer:false,powerPreference:'high-performance'});
+    let controls: OrbitControls|undefined;
     try {
-      return pmrem.fromScene(env, 0.03);
-    } finally {
-      env.dispose();
-      pmrem.dispose();
+      this.renderer.setPixelRatio(exporting?1:Math.min(window.devicePixelRatio,2));
+      this.renderer.outputColorSpace=THREE.SRGBColorSpace;
+      this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1;
+      this.studio=createStudio(this.renderer,this.scene);
+      controls=new OrbitControls(this.camera,canvas);this.controls=controls;
+      controls.enableDamping=false;controls.enablePan=false;controls.minDistance=30;controls.maxDistance=220;
+      controls.addEventListener('change',this.change);
+      canvas.addEventListener('webglcontextlost',this.lost);
+      this.setPreset('Oblique');
+      if(!exporting) {
+        this.observer=new ResizeObserver(()=>this.resize());this.observer.observe(canvas);
+        canvas.addEventListener('pointerdown',this.down);canvas.addEventListener('pointerup',this.up);
+        canvas.addEventListener('pointercancel',this.cancel);this.resize();
+      }
+    } catch(error) {
+      this.observer?.disconnect();controls?.dispose();this.studio?.dispose();
+      canvas.removeEventListener('webglcontextlost',this.lost);
+      canvas.removeEventListener('pointerdown',this.down);canvas.removeEventListener('pointerup',this.up);canvas.removeEventListener('pointercancel',this.cancel);
+      this.renderer.dispose();this.renderer.forceContextLoss();throw error;
     }
   }
-  private restored = () => {
-    if (this.disposed) return;
-    this.contextLost = false;
-    // Render-target contents do not survive a lost context. Recreate the lighting
-    // projection as well as uploading the latest semantic artwork/geometry again.
-    this.environment.dispose();
-    this.environment = this.createEnvironment();
-    this.scene.environment = this.environment.texture;
-    if (this.latestInput)
-      void this.update(this.latestInput).catch(() => {
-        this.ready = false;
-        this.onStatus?.(
-          "3D recovery failed. Your design is preserved; reload to retry.",
-        );
-      });
-  };
-  onCamera?: (state: CameraState) => void;
-  constructor(
-    readonly canvas: HTMLCanvasElement,
-    private onSelect?: (id: string) => void,
-    private onStatus?: (message: string) => void,
-    exporting = false,
-  ) {
-    this.renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: false,
-      preserveDrawingBuffer: exporting,
-      powerPreference: "high-performance",
-    });
-    this.renderer.setPixelRatio(
-      exporting ? 1 : Math.min(window.devicePixelRatio, 2),
-    );
-    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1;
-    this.scene.background = new THREE.Color("#151c21");
-    this.environment = this.createEnvironment();
-    this.scene.environment = this.environment.texture;
-    this.scene.environmentIntensity = 1.6;
-    this.scene.add(new THREE.HemisphereLight(0xe9f0ff, 0x6f4830, 2.2));
-    const key = new THREE.DirectionalLight(0xfff4de, 4);
-    key.position.set(-35, 55, 70);
-    this.scene.add(key);
-    const fill = new THREE.DirectionalLight(0xa1c7f6, 2);
-    fill.position.set(40, -10, 20);
-    this.scene.add(fill);
-    this.controls = new OrbitControls(this.camera, canvas);
-    this.controls.enableDamping = false;
-    this.controls.enablePan = false;
-    this.controls.minDistance = 30;
-    this.controls.maxDistance = 220;
-    this.controls.addEventListener("change", this.change);
-    canvas.addEventListener("webglcontextlost", this.lost);
-    canvas.addEventListener("webglcontextrestored", this.restored);
-    this.setPreset("Oblique");
-    if (!exporting) {
-      this.observer = new ResizeObserver(() => this.resize());
-      this.observer.observe(canvas);
-      canvas.addEventListener("pointerdown", this.down);
-      canvas.addEventListener("pointerup", this.up);
-      this.resize();
-    }
-  }
+
   get status() {
-    return {
-      ready: this.ready && !this.contextWarning,
-      fontFailure: this.fontFailure,
-      manifest: this.design
-        ? renderManifest(this.design, this.presetName)
-        : null,
-      resources: { ...this.renderer.info.memory },
-    };
+    return {ready:this.ready&&!this.disposed&&!this.contextLost,fontFailure:this.fontFailure,
+      manifest:this.design?{...renderManifest(this.design,this.presetName),inputHash:this.inputHash,
+        cameraState:this.cameraState(),width:this.canvas.width,height:this.canvas.height,
+        pixelRatio:this.renderer.getPixelRatio(),faithful:this.ready&&!this.disposed&&!this.contextLost}:null,
+      resources:{...this.renderer.info.memory},draw:{...this.renderer.info.render}};
   }
-  cameraState(): CameraState {
-    return {
-      position: this.camera.position.toArray(),
-      target: this.controls.target.toArray(),
-      zoom: this.camera.zoom,
-    };
-  }
+  cameraState(): CameraState { return {position:this.camera.position.toArray(),target:this.controls.target.toArray(),zoom:this.camera.zoom}; }
   setCamera(state: CameraState) {
-    if (sameCamera(this.cameraState(), state)) return;
-    this.applyingCamera = true;
-    this.camera.position.fromArray(state.position);
-    this.camera.zoom = state.zoom;
-    this.controls.target.fromArray(state.target);
-    this.camera.updateProjectionMatrix();
-    this.controls.update();
-    this.applyingCamera = false;
+    if(this.disposed)return;
+    if(state.position.length!==3||state.target.length!==3||![...state.position,...state.target,state.zoom].every(Number.isFinite)||state.zoom<=0)throw new Error('Invalid camera state.');
+    this.presetName='Custom';this.settingCamera=true;
+    try { this.camera.position.fromArray(state.position);this.camera.zoom=state.zoom;this.controls.target.fromArray(state.target);this.camera.updateProjectionMatrix();this.controls.update(); }
+    finally {this.settingCamera=false;}
     this.render();
   }
   setPreset(preset: Preset) {
-    this.presetName = preset;
-    this.setCamera(presets[preset]);
+    if(!presets[preset])throw new Error('Unsupported camera preset.');
+    this.setCamera(presets[preset]);this.presetName=preset;
   }
-  resize(width = this.canvas.clientWidth, height = this.canvas.clientHeight) {
-    if (width < 1 || height < 1) return;
-    this.renderer.setSize(width, height, false);
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.render();
+  resize(width=this.canvas.clientWidth,height=this.canvas.clientHeight) {
+    if(this.disposed)return;
+    if(!Number.isFinite(width)||!Number.isFinite(height)||width<1||height<1)return;
+    this.renderer.setSize(width,height,false);this.camera.aspect=width/height;this.camera.updateProjectionMatrix();this.render();
   }
-  async update(design: Design) {
-    const request = ++this.requested;
-    this.ready = false;
-    const captured = structuredClone(design);
-    this.latestInput = captured;
+  async update(input: Design) {
+    if(this.disposed)throw new Error('Viewport is disposed.');
+    if(this.contextLost)throw new Error('3D context lost. Recreate the viewport before updating.');
+    const design=renderSnapshot(input),request=++this.requested;
+    this.ready=false;
+    let fontFailure='';
     try {
-      await loadFonts();
-    } catch (e) {
-      this.fontFailure = (e as Error).message;
+      const [hash]=await Promise.all([
+        contentHash(new TextEncoder().encode(JSON.stringify(design))),
+        loadFonts().catch(error=>{fontFailure=(error as Error).message;}),
+      ]);
+      if(this.disposed||this.contextLost||request!==this.requested)return;
+      if(this.model?.identity===identityKey(design))this.model.update(design,fontFailure?'sans-serif':FONT_FAMILY);
+      else {
+        const next=buildWatch(design,fontFailure?'sans-serif':FONT_FAMILY);
+        this.model?.dispose();this.model=next;this.scene.add(next.group);
+      }
+      this.design=design;this.inputHash=hash;this.fontFailure=fontFailure;this.ready=!fontFailure;
+      this.onStatus?.([fontFailure,...this.model.warnings].filter(Boolean).join(' '));this.render();
+    } catch(error) {
+      if(request===this.requested&&!this.disposed) {this.ready=false;this.onStatus?.((error as Error).message);}
+      throw error;
     }
-    if (this.disposed || request !== this.requested) return;
-    const artwork = this.artwork.update(captured);
-    const input = {
-      design: captured,
-      dialTexture: this.artwork.texture,
-      textBounds: artwork.textBounds,
-    };
-    const key = JSON.stringify({
-      template: captured.template,
-      components: captured.components,
-      ids: captured.objects.map((o) => o.id),
-      markers: {
-        style: captured.objects[2].style,
-        length: captured.objects[2].length,
-      },
-      hands: captured.handStyle,
-      strap: captured.strap,
-    });
-    if (this.model && this.modelKey === key) this.model.update(input);
-    else {
-      this.model?.dispose();
-      if (this.model) this.scene.remove(this.model.root);
-      this.model = buildWatch(input);
-      this.modelKey = key;
-      this.scene.add(this.model.root);
-    }
-    this.design = captured;
-    this.ready = !this.fontFailure && !this.contextWarning;
-    this.onStatus?.(
-      [
-        this.contextWarning,
-        this.fontFailure,
-        ...artwork.warnings,
-        ...this.model.warnings,
-      ]
-        .filter(Boolean)
-        .join(" "),
-    );
-    this.render();
   }
-  render() {
-    if (this.disposed || this.contextWarning) return;
-    this.renderer.render(this.scene, this.camera);
-  }
-  dispose(loseContext = true) {
-    if (this.disposed) return;
-    this.disposed = true;
-    ++this.requested;
-    this.observer?.disconnect();
-    this.controls.removeEventListener("change", this.change);
-    this.controls.dispose();
-    this.canvas.removeEventListener("pointerdown", this.down);
-    this.canvas.removeEventListener("pointerup", this.up);
-    this.canvas.removeEventListener("webglcontextlost", this.lost);
-    this.canvas.removeEventListener("webglcontextrestored", this.restored);
-    this.model?.dispose();
-    this.artwork.dispose();
-    this.environment.dispose();
-    this.renderer.dispose();
-    if (loseContext) this.renderer.forceContextLoss();
+  render() { if(!this.disposed&&!this.contextLost)this.renderer.render(this.scene,this.camera); }
+  dispose() {
+    if(this.disposed)return;
+    this.disposed=true;this.ready=false;++this.requested;
+    this.observer?.disconnect();this.controls.removeEventListener('change',this.change);this.controls.dispose();
+    this.canvas.removeEventListener('pointerdown',this.down);this.canvas.removeEventListener('pointerup',this.up);
+    this.canvas.removeEventListener('pointercancel',this.cancel);this.canvas.removeEventListener('webglcontextlost',this.lost);
+    this.model?.dispose();this.studio?.dispose();this.scene.clear();this.renderer.dispose();this.renderer.forceContextLoss();
   }
 }
-export async function exportPNG(
-  design: Design,
-  preset: Preset = "Oblique",
-): Promise<Blob> {
+
+export async function exportPNG(input: Design,preset: Preset='Oblique'): Promise<Blob> {
+  // Capture before the first await; edits to the caller's object cannot change this export.
+  const design=renderSnapshot(input);
   await loadFonts();
-  const canvas = document.createElement("canvas");
-  const view = new WatchViewport(canvas, undefined, undefined, true);
+  const canvas=document.createElement('canvas');
+  let view: WatchViewport|undefined;
   try {
-    view.resize(1600, 1200);
-    view.setPreset(preset);
-    await view.update(structuredClone(design));
-    if (
-      !view.status.ready ||
-      view.status.manifest?.input !== JSON.stringify(design)
-    )
-      throw new Error("Preview resources are not ready for this design.");
+    view=new WatchViewport(canvas,undefined,undefined,true);view.resize(1600,1200);view.setPreset(preset);
+    await view.update(design);
+    if(!view.status.ready||view.status.manifest?.input!==JSON.stringify(design))throw new Error('Preview resources are not ready for this design.');
     view.render();
-    return await new Promise<Blob>((resolve, reject) =>
-      canvas.toBlob(
-        (b) =>
-          b ? resolve(b) : reject(new Error("PNG export failed. Try again.")),
-        "image/png",
-      ),
-    );
-  } finally {
-    view.dispose();
-    canvas.width = canvas.height = 1;
-  }
+    const blob=await new Promise<Blob>((resolve,reject)=>canvas.toBlob(value=>value?resolve(value):reject(new Error('PNG export failed. Try again.')),'image/png'));
+    if(!view.status.ready)throw new Error('Preview context was lost during export.');
+    return blob;
+  } finally {view?.dispose();canvas.width=canvas.height=1;}
 }
