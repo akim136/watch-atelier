@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 
 afterEach(()=>{vi.useRealTimers();vi.unstubAllGlobals();vi.resetModules();});
 
-it('font readiness timeout cannot register late faces over a successful retry',async()=>{
+it('[ASSET-FONTS] font readiness timeout cannot register late faces over a successful retry',async()=>{
   vi.useFakeTimers({toFake:['setTimeout','clearTimeout']});
   const regular=await readFile('public/fonts/IBMPlexSansCondensed-Regular.woff2');
   const medium=await readFile('public/fonts/IBMPlexSansCondensed-Medium.woff2');
@@ -19,7 +19,7 @@ it('font readiness timeout cannot register late faces over a successful retry',a
   vi.stubGlobal('FontFace',Face);
   vi.stubGlobal('document',{fonts:{add:(face:object)=>registered.add(face),delete:(face:object)=>registered.delete(face)}});
   vi.stubGlobal('fetch',async(url:string)=>new Response(new Uint8Array(url.includes('Regular')?regular:medium)));
-  const {loadFonts}=await import('../../src/render/resources');
+  const {loadFonts}=await import('../../src/render/assets/legacy/resources');
   const timedOut=loadFonts(),failure=expect(timedOut).rejects.toThrow('font is unavailable');
   await facesStarted;await vi.advanceTimersByTimeAsync(10001);await failure;
   expect(registered.size).toBe(0);

@@ -1,6 +1,6 @@
 import { it, expect } from 'vitest';
 import { collectionEdits, collectionPresets, colorPalette, namedColor, type CollectionPreset, type PaletteColor } from '../../src/render/collections';
-import { starterEdits } from '../../src/render/presets';
+import { starterEdits } from '../../src/render/assets/legacy/presets';
 import { applyProjectCommand, semanticDesign } from '../../src/domain/commands';
 import { fixtureProject } from './fixture';
 import acceptedStarters from './accepted-starters.json';
@@ -13,7 +13,7 @@ const luminance=(hex:string)=>{
   return c[0]*.2126+c[1]*.7152+c[2]*.0722;
 };
 
-it('nine explicit studies preserve the fixed head and identities, remain editable and have distinct readable dials',()=>{
+it('[ASSET-COLORS] nine explicit studies preserve the fixed head and identities, remain editable and have distinct readable dials',()=>{
   expect(collectionPresets.map(p=>p.id)).toEqual(['midnight','porcelain','moss','claret','sand','ice','copper','plum','slate']);
   const baseline=fixtureProject(),before=JSON.stringify(baseline),designs=collectionPresets.map(({id})=>{
     const result=apply(baseline,id),d=result.project.variants[0].design,original=baseline.variants[0].design;
@@ -33,7 +33,7 @@ it('nine explicit studies preserve the fixed head and identities, remain editabl
   expect(JSON.stringify(baseline)).toBe(before);
 });
 
-it('reapplication is a no-op; A/B/A restores track, hand and strap; locked batches reject atomically',()=>{
+it('[ASSET-COLORS] reapplication is a no-op; A/B/A restores track, hand and strap; locked batches reject atomically',()=>{
   const a=apply(fixtureProject(),'moss'),same=apply(a.project,'moss');
   expect(same.changed).toBe(false);expect(same.project).toBe(a.project);
   const b=apply(a.project,'porcelain');expect(b.project.variants[0].design.objects[3].visible).toBe(false);
@@ -46,7 +46,7 @@ it('reapplication is a no-op; A/B/A restores track, hand and strap; locked batch
   expect(second).toEqual(collectionEdits(d,'ice'));expect(first).not.toEqual(second);
 });
 
-it('named palette has the explicit immutable inventory and rejects missing or inherited names',()=>{
+it('[ASSET-COLORS] named palette has the explicit immutable inventory and rejects missing or inherited names',()=>{
   expect(Object.keys(colorPalette)).toEqual(['midnight','porcelain','moss','claret','sand','ice','copper','plum','slate',
     'ivory','ink','navy','silver','champagne','terracotta','teal','charcoal','paper']);
   expect(Object.isFrozen(colorPalette)).toBe(true);expect(new Set(Object.values(colorPalette)).size).toBe(18);
@@ -55,7 +55,7 @@ it('named palette has the explicit immutable inventory and rejects missing or in
   expect(()=>collectionEdits(fixtureProject().variants[0].design,'missing' as CollectionPreset)).toThrow('Unsupported collection preset');
 });
 
-it('three original starters equal the accepted pre-expansion semantic snapshots',()=>{
+it('[ASSET-COLORS] three original starters equal the accepted pre-expansion semantic snapshots',()=>{
   const p=fixtureProject();
   for(const id of ['instrument','gallery','coastal'] as const) {
     const result=applyProjectCommand(p,{type:'edit',variantId:p.variants[0].id,edits:starterEdits(p.variants[0].design,id)},p.revision);

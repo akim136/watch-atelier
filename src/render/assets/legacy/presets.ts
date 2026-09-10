@@ -1,5 +1,5 @@
-import { type Design } from '../domain/model';
-import { type Edit } from '../domain/commands';
+import { type Design } from '../../../domain/model';
+import { type Edit } from '../../../domain/commands';
 
 export const STARTER_VERSION='atelier-starters-1.0.0';
 export const starterPresets=Object.freeze([

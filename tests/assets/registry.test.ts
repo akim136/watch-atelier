@@ -1,9 +1,9 @@
 import { it, expect } from 'vitest';
 import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { RECIPE } from '../../src/render/recipe';
+import { RECIPE } from '../../src/render/assets/legacy/recipe';
 
-it('asset registry matches actual sources and bundled dependencies; missing dependency is not a pass',async()=>{
+it('[ASSET-PROVENANCE] asset registry matches actual sources and bundled dependencies; missing dependency is not a pass',async()=>{
   const registry=JSON.parse(await readFile('docs/assets/registry.json','utf8'));
   expect(registry.assets).toHaveLength(5);expect(registry.sources.length).toBeGreaterThanOrEqual(10);
   expect(registry.template).toBe(RECIPE.template);expect(registry.recipeVersion).toBe(RECIPE.version);

@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import { applyProjectCommand, type Edit } from '../../src/domain/commands';
-import { WatchViewport, exportPNG, type Preset } from '../../src/render/viewport';
+import { WatchViewport, exportPNG, type Preset } from '../../src/render/assets/legacy/viewport';
 import { fixtureProject } from './fixture';
-import { buildWatch, renderSnapshot } from '../../src/render/watch';
-import { DialArtwork } from '../../src/render/dial';
-import { LatestArtifact, loadFonts } from '../../src/render/resources';
-import { starterEdits, starterPresets, type StarterPreset } from '../../src/render/presets';
+import { buildWatch, renderSnapshot } from '../../src/render/assets/legacy/watch';
+import { DialArtwork } from '../../src/render/assets/legacy/dial';
+import { LatestArtifact, loadFonts } from '../../src/render/assets/legacy/resources';
+import { starterEdits, starterPresets, type StarterPreset } from '../../src/render/assets/legacy/presets';
 import { collectionEdits, collectionPresets, type CollectionPreset } from '../../src/render/collections';
 
 const canvas=document.querySelector('canvas')!;

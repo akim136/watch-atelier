@@ -3,8 +3,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { createModelStudy } from '../../src/render/assets/model-studies';
 import { MODEL_STUDY_VERSION, modelStudyRecipes, STUDY_PRESENTATION, studyArtworkKey, studyText, requireStudyPresentation,
   type ModelStudyId, type StudyPresentation } from '../../src/render/assets/model-recipes';
-import { createStudio } from '../../src/render/studio';
-import { contentHash, FONT_FAMILY, FONT_HASHES, loadFonts } from '../../src/render/resources';
+import { createStudio } from '../../src/render/assets/legacy/studio';
+import { contentHash, FONT_FAMILY, FONT_HASHES, loadFonts } from '../../src/render/assets/legacy/resources';
 import { fixtureProject } from './fixture';
 
 // Test host owns every async dependency; production assets only borrow ready maps.

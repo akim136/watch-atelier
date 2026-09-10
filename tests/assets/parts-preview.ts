@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { createHandSet, HAND_RECIPE_VERSION, handRecipes, type HandRecipeId } from '../../src/render/assets/hands';
 import { createFinish, finishRecipes, FINISH_VERSION, type HandFinishId } from '../../src/render/assets/materials';
-import { createStudio } from '../../src/render/studio';
+import { createStudio } from '../../src/render/assets/legacy/studio';
 import { handInput, type HandAsset } from './parts-fixture';
 
 /** Test-only host. None of these selections are canonical saved-product state. */

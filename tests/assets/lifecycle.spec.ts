@@ -131,7 +131,7 @@ test('late font completion uses only the last immutable input; A-B-A texture res
   await page.evaluate(()=>(window as unknown as {pendingAssets:Promise<unknown>}).pendingAssets);
   expect(await page.evaluate(()=>JSON.parse(window.assetFixture.view.status.manifest!.input).dialColor)).toBe('#ece6d8');
   const result=await page.evaluate(async()=>{
-    const f=window.assetFixture,gate=new f.LatestArtifact<import('../../src/render/dial').DialArtwork>();
+    const f=window.assetFixture,gate=new f.LatestArtifact<import('../../src/render/assets/legacy/dial').DialArtwork>();
     const completed: (()=>void)[]=[],accepted: string[]=[],discarded: string[]=[];
     const jobs=['A','B','A'].map((key,index)=>gate.request(key,()=>new Promise(resolve=>{
       completed.push(()=>{const artwork=new f.DialArtwork(f.design());artwork.texture.name=String(index);resolve(artwork);});

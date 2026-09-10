@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import * as THREE from 'three';
-import { buildHead, buildHands, buildStrap } from '../../src/render/geometry';
-import { buildMarkers } from '../../src/render/dial';
-import { renderSnapshot } from '../../src/render/watch';
-import { clockPoint, clockRotation, handRotations } from '../../src/render/recipe';
-import { makeMaterial, grainTexture } from '../../src/render/materials';
+import { buildHead, buildHands, buildStrap } from '../../src/render/assets/legacy/geometry';
+import { buildMarkers } from '../../src/render/assets/legacy/dial';
+import { renderSnapshot } from '../../src/render/assets/legacy/watch';
+import { clockPoint, clockRotation, handRotations } from '../../src/render/assets/legacy/recipe';
+import { makeMaterial, grainTexture } from '../../src/render/assets/legacy/materials';
 import { fixtureProject } from './fixture';
 
 function signature(root: THREE.Object3D) {
@@ -17,7 +17,7 @@ function signature(root: THREE.Object3D) {
   return values;
 }
 describe('M1 asset geometry boundary',()=>{
-  it('has exact authored head/attachment bounds and finite deterministic geometry',()=>{
+  it('[ASSET-GEOMETRY] has exact authored head/attachment bounds and finite deterministic geometry',()=>{
     const design=fixtureProject().variants[0].design,before=JSON.stringify(design);
     const a=buildHead(design),b=buildHead(design);
     try {
@@ -45,7 +45,7 @@ describe('M1 asset geometry boundary',()=>{
       expect(JSON.stringify(design)).toBe(before);
     } finally {a.dispose();b.dispose();}
   });
-  it('places twelve/three markers and clockwise hand pivots correctly at 10:10:30',()=>{
+  it('[ASSET-GEOMETRY] places twelve/three markers and clockwise hand pivots correctly at 10:10:30',()=>{
     expect(clockPoint(0,10)).toEqual([0,10]);expect(clockPoint(.25,10)[0]).toBeCloseTo(10);
     const three=new THREE.Vector3(0,10,0).applyAxisAngle(new THREE.Vector3(0,0,1),clockRotation(.25));
     expect(three.x).toBeCloseTo(10);expect(three.y).toBeCloseTo(0);
@@ -60,7 +60,7 @@ describe('M1 asset geometry boundary',()=>{
       }
     } finally {hands.dispose();markers.dispose();}
   });
-  it('owns independent materials/geometry and deterministic bounded non-color grain',()=>{
+  it('[ASSET-GEOMETRY] owns independent materials/geometry and deterministic bounded non-color grain',()=>{
     const d=fixtureProject().variants[0].design,a=buildStrap(d),b=buildStrap(d);
     try {
       const am=a.group.children[0] as THREE.Mesh<THREE.BufferGeometry,THREE.MeshStandardMaterial>;
@@ -73,7 +73,7 @@ describe('M1 asset geometry boundary',()=>{
       const material=makeMaterial('brushed-steel-look');material.dispose();
     } finally {a.dispose();b.dispose();}
   });
-  it('rejects unsupported units/version/missing identity with a valid control',()=>{
+  it('[ASSET-GEOMETRY] rejects unsupported units/version/missing identity with a valid control',()=>{
     const d=fixtureProject().variants[0].design;expect(renderSnapshot(d)).toEqual(d);
     for(const patch of [{units:'m'},{template:'atelier-round-01'},{components:d.components.slice(1)},{objects:d.objects.map(o=>({...o,id:d.id}))}]) {
       expect(()=>renderSnapshot({...d,...patch} as typeof d)).toThrow();

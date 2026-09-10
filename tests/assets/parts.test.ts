@@ -43,7 +43,7 @@ function checkAsset(asset: HandAsset, semanticId: string) {
 }
 
 describe('new authoring hand subparts', () => {
-  it('requires the explicit four distinct recipes with stable mappings and deterministic finite bounded geometry', () => {
+  it('[ASSET-PARTS] requires the explicit four distinct recipes with stable mappings and deterministic finite bounded geometry', () => {
     expect(Object.keys(handRecipes)).toEqual([...handIds]);
     expect(HAND_RECIPE_VERSION).toBe('atelier-hand-studies-1.0.0');
     const shapes: string[] = [];
@@ -61,7 +61,7 @@ describe('new authoring hand subparts', () => {
     expect(new Set(shapes).size).toBe(4);
   });
 
-  it('keeps all three XY pivots at center and points geometry toward three o’clock, with fractional regression time', () => {
+  it('[ASSET-PARTS] keeps all three XY pivots at center and points geometry toward three o’clock, with fractional regression time', () => {
     for (const id of handIds) {
       const a = createHandSet(handInput(id));
       try {
@@ -88,7 +88,7 @@ describe('new authoring hand subparts', () => {
     }
   });
 
-  it('does not alias variants, retain mutable inputs or release another view’s resources', () => {
+  it('[ASSET-PARTS] does not alias variants, retain mutable inputs or release another view’s resources', () => {
     const input = handInput('dauphine'), a = createHandSet(input), b = createHandSet(input);
     const resources = (asset: HandAsset) => {
       const set = new Set<THREE.BufferGeometry | THREE.Material | THREE.Texture>();
@@ -119,7 +119,7 @@ describe('new authoring hand subparts', () => {
     expect(() => a.setPresentation({ hour: 0, minute: 0, second: 0 })).toThrow('disposed');
   });
 
-  it('rejects unsupported IDs, units, versions and component descriptors instead of substituting', () => {
+  it('[ASSET-PARTS] rejects unsupported IDs, units, versions and component descriptors instead of substituting', () => {
     const input = handInput();
     for (const patch of [
       { units: 'm' }, { recipeId: 'baton' }, { recipeId: 'toString' }, { recipeVersion: 'next' },
@@ -129,7 +129,7 @@ describe('new authoring hand subparts', () => {
     const valid = createHandSet(input); checkAsset(valid, input.component.id); valid.dispose();
   });
 
-  it('rejects bad presentation atomically and leaves the previous poses/geometry unchanged', () => {
+  it('[ASSET-PARTS] rejects bad presentation atomically and leaves the previous poses/geometry unchanged', () => {
     const a = createHandSet(handInput()), before = digest(a);
     const pose = () => ['hour', 'minute', 'second'].map(role => a.root.getObjectByName(`hands.${role}.pivot`)!.rotation.z);
     const previous = pose();
@@ -142,7 +142,7 @@ describe('new authoring hand subparts', () => {
     expect(digest(a)).toEqual(before); a.dispose();
   });
 
-  it('releases partially constructed materials/maps and the first hand when a later contour fails', () => {
+  it('[ASSET-PARTS] releases partially constructed materials/maps and the first hand when a later contour fails', () => {
     const geometryDisposal = vi.spyOn(THREE.BufferGeometry.prototype, 'dispose');
     const materialDisposal = vi.spyOn(THREE.Material.prototype, 'dispose');
     const textureDisposal = vi.spyOn(THREE.Texture.prototype, 'dispose');
@@ -161,7 +161,7 @@ describe('new authoring hand subparts', () => {
     const valid = createHandSet(handInput('spade')); checkAsset(valid, handInput().component.id); valid.dispose();
   });
 
-  it('proves geometry and mapping checkers reject seeded faults with the valid control still passing', () => {
+  it('[ASSET-PARTS] proves geometry and mapping checkers reject seeded faults with the valid control still passing', () => {
     const a = createHandSet(handInput()); checkAsset(a, handInput().component.id);
     a.pickables[0].userData.semanticId = 'wrong';
     expect(() => checkAsset(a, handInput().component.id)).toThrow();
@@ -172,7 +172,7 @@ describe('new authoring hand subparts', () => {
 });
 
 describe('five original part appearances', () => {
-  it('requires the exact inventory and deterministically owns bounded non-color maps per instance', () => {
+  it('[ASSET-PARTS] requires the exact inventory and deterministically owns bounded non-color maps per instance', () => {
     expect(Object.keys(finishRecipes)).toEqual([...finishIds]);
     expect(FINISH_VERSION).toBe('atelier-part-finishes-1.0.0');
     const colors = new Set<number>();

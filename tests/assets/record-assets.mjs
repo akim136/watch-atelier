@@ -1,9 +1,9 @@
 import { readFile, writeFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { RECIPE } from '../../src/render/recipe.ts';
+import { RECIPE } from '../../src/render/assets/legacy/recipe.ts';
 
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
-const sourceFiles=(await readdir('src/render')).filter(file=>file.endsWith('.ts')).sort().map(file=>`src/render/${file}`);
+const sourceFiles=(await readdir('src/render/assets/legacy')).filter(file=>file.endsWith('.ts')).sort().map(file=>`src/render/assets/legacy/${file}`);
 const sources=await Promise.all(sourceFiles.map(async path=>({path,sha256:hash(await readFile(path))})));
 const fontProvenance=JSON.parse(await readFile('docs/assets/font-provenance.json','utf8'));
 const dependencies=[];
@@ -25,11 +25,11 @@ const registry={format:'watch-atelier-asset-registry',version:1,template:RECIPE.
   sources,sourceContentHash:hash(Buffer.from(JSON.stringify(sources))),dependencies,
   fontSourceRevision:fontProvenance.gitHead,
   assets:[
-    {id:RECIPE.template,kind:'procedural-watch-template',source:'src/render/geometry.ts',roles:['case','bezel','hands','crystal','strap']},
-    {id:'atelier-semantic-dial',kind:'semantic-dial-projection',source:'src/render/dial.ts',roles:['dial','text','markers','track']},
-    {id:RECIPE.materials,kind:'appearance-library',source:'src/render/materials.ts',count:7},
-    {id:RECIPE.environment,kind:'procedural-environment',source:'src/render/studio.ts',externalImages:false},
-    {id:'atelier-starters-1.0.0',kind:'typed-edit-presets',source:'src/render/presets.ts',presets:['instrument','gallery','coastal']},
+    {id:RECIPE.template,kind:'procedural-watch-template',source:'src/render/assets/legacy/geometry.ts',roles:['case','bezel','hands','crystal','strap']},
+    {id:'atelier-semantic-dial',kind:'semantic-dial-projection',source:'src/render/assets/legacy/dial.ts',roles:['dial','text','markers','track']},
+    {id:RECIPE.materials,kind:'appearance-library',source:'src/render/assets/legacy/materials.ts',count:7},
+    {id:RECIPE.environment,kind:'procedural-environment',source:'src/render/assets/legacy/studio.ts',externalImages:false},
+    {id:'atelier-starters-1.0.0',kind:'typed-edit-presets',source:'src/render/assets/legacy/presets.ts',presets:['instrument','gallery','coastal']},
   ],
   verification:{report:'docs/assets/INTEGRATION.md',humanVisualAcceptance:'pending',fullApplicationIntegration:'pending'},
 };

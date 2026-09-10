@@ -1,12 +1,12 @@
 import { it, expect } from 'vitest';
-import { starterEdits, starterPresets } from '../../src/render/presets';
+import { starterEdits, starterPresets } from '../../src/render/assets/legacy/presets';
 import { applyProjectCommand } from '../../src/domain/commands';
-import { buildHands } from '../../src/render/geometry';
-import { materialRecipes, makeMaterial } from '../../src/render/materials';
+import { buildHands } from '../../src/render/assets/legacy/geometry';
+import { materialRecipes, makeMaterial } from '../../src/render/assets/legacy/materials';
 import { fixtureProject } from './fixture';
 import * as THREE from 'three';
 
-it('all three starters are supported independent edits preserving identities and fixed geometry',()=>{
+it('[ASSET-PRESETS] all three starters are supported independent edits preserving identities and fixed geometry',()=>{
   const p=fixtureProject(),d=p.variants[0].design,before=JSON.stringify(p);
   const designs=starterPresets.map(preset=>{
     const edits=starterEdits(d,preset.id);
@@ -24,7 +24,7 @@ it('all three starters are supported independent edits preserving identities and
   expect(()=>applyProjectCommand(locked,{type:'edit',variantId:p.variants[0].id,edits:starterEdits(d,'gallery')},0)).toThrow('locked');
 });
 
-it('hand alternatives change authored geometry with the same pivots and semantic component',()=>{
+it('[ASSET-PRESETS] hand alternatives change authored geometry with the same pivots and semantic component',()=>{
   const d=fixtureProject().variants[0].design,a=buildHands(d),b=buildHands({...d,handStyle:'leaf'});
   try {
     const mesh=(root:THREE.Group)=>root.getObjectByName('hands.hour') as THREE.Mesh;
@@ -34,7 +34,7 @@ it('hand alternatives change authored geometry with the same pivots and semantic
   } finally {a.dispose();b.dispose();}
 });
 
-it('seven material recipes allocate independently; unsupported look rejects',()=>{
+it('[ASSET-PRESETS] seven material recipes allocate independently; unsupported look rejects',()=>{
   expect(Object.keys(materialRecipes)).toHaveLength(7);
   for(const key of Object.keys(materialRecipes) as (keyof typeof materialRecipes)[]) {
     const a=makeMaterial(key),b=makeMaterial(key);expect(a).not.toBe(b);expect(a.color).not.toBe(b.color);a.dispose();b.dispose();

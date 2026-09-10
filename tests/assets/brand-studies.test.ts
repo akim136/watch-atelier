@@ -40,7 +40,7 @@ function checkStudy(asset: ReturnType<typeof createModelStudy>, input: ModelStud
 }
 
 describe('six named exterior model studies', () => {
-  it('requires all six actual distinct recipes with finite geometry, component mappings and connected attachments', () => {
+  it('[ASSET-MODELS] requires all six actual distinct recipes with finite geometry, component mappings and connected attachments', () => {
     expect(Object.keys(modelStudyRecipes)).toEqual([...ids]);
     const fingerprints = new Set<string>();
     for (const id of ids) {
@@ -56,7 +56,7 @@ describe('six named exterior model studies', () => {
     expect(fingerprints.size).toBe(6);
   });
 
-  it('renders the declared complication roles and their actual hand angles; no-date and no-chronograph controls', () => {
+  it('[ASSET-MODELS] renders the declared complication roles and their actual hand angles; no-date and no-chronograph controls', () => {
     for (const id of ids) {
       const input = studyInput(id), a = createModelStudy(input), names = [...a.regions.keys()];
       try {
@@ -78,7 +78,7 @@ describe('six named exterior model studies', () => {
     }
   });
 
-  it('keeps retained branding/calendar text separate from derived textures and rejects invalid study/presentation keys', () => {
+  it('[ASSET-MODELS] keeps retained branding/calendar text separate from derived textures and rejects invalid study/presentation keys', () => {
     for (const id of ids) {
       const before = JSON.stringify(STUDY_PRESENTATION), texts = studyText(id, STUDY_PRESENTATION);
       expect(texts.some(t => t.regionId === 'brand.wordmark')).toBe(true);
@@ -97,7 +97,7 @@ describe('six named exterior model studies', () => {
     expect(forty.x).toBeCloseTo(-2.47 * Math.sqrt(3) / 2, 8); expect(forty.y).toBeCloseTo(-6.65 - 1.235, 8);
   });
 
-  it('never mutates/disposes borrowed maps, rejects missing and incompatible artwork, and isolates owned materials', () => {
+  it('[ASSET-MODELS] never mutates/disposes borrowed maps, rejects missing and incompatible artwork, and isolates owned materials', () => {
     const input = studyInput('royal-oak'), a = createModelStudy(input), b = createModelStudy(input);
     let borrowedDisposals = 0, aDisposals = 0, bDisposals = 0, instanceDisposals = 0;
     (a.regions.get('dial.tapisserie') as THREE.InstancedMesh).addEventListener('dispose', () => instanceDisposals++);
@@ -121,7 +121,7 @@ describe('six named exterior model studies', () => {
     retireInput(input); expect(borrowedDisposals).toBe(2);
   });
 
-  it('seeded identity corruption and disconnected bracelets fail real checkers', () => {
+  it('[ASSET-MODELS] seeded identity corruption and disconnected bracelets fail real checkers', () => {
     const input = studyInput('submariner'), a = createModelStudy(input); checkStudy(a, input);
     a.pickables[0].userData.semanticId = 'wrong'; expect(() => checkStudy(a, input)).toThrow();
     a.pickables[0].userData.semanticId = input.components.find(c => c.role === 'case')!.id;

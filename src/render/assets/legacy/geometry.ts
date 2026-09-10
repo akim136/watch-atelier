@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { type Design } from '../domain/model';
+import { type Design } from '../../../domain/model';
 import { makeMaterial, grainTexture } from './materials';
 import { WatchPart } from './ownership';
 import { RECIPE, handRotations } from './recipe';

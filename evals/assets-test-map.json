@@ -1,0 +1,63 @@
+{
+  "ASSET-GEOMETRY": {
+    "unit": [
+      "[ASSET-GEOMETRY] has exact authored head/attachment bounds and finite deterministic geometry",
+      "[ASSET-GEOMETRY] places twelve/three markers and clockwise hand pivots correctly at 10:10:30",
+      "[ASSET-GEOMETRY] owns independent materials/geometry and deterministic bounded non-color grain",
+      "[ASSET-GEOMETRY] rejects unsupported units/version/missing identity with a valid control"
+    ],
+    "browser": []
+  },
+  "ASSET-FONTS": {
+    "unit": [
+      "[ASSET-FONTS] font readiness timeout cannot register late faces over a successful retry"
+    ],
+    "browser": []
+  },
+  "ASSET-PRESETS": {
+    "unit": [
+      "[ASSET-PRESETS] all three starters are supported independent edits preserving identities and fixed geometry",
+      "[ASSET-PRESETS] hand alternatives change authored geometry with the same pivots and semantic component",
+      "[ASSET-PRESETS] seven material recipes allocate independently; unsupported look rejects"
+    ],
+    "browser": []
+  },
+  "ASSET-COLORS": {
+    "unit": [
+      "[ASSET-COLORS] nine explicit studies preserve the fixed head and identities, remain editable and have distinct readable dials",
+      "[ASSET-COLORS] reapplication is a no-op; A/B/A restores track, hand and strap; locked batches reject atomically",
+      "[ASSET-COLORS] named palette has the explicit immutable inventory and rejects missing or inherited names",
+      "[ASSET-COLORS] three original starters equal the accepted pre-expansion semantic snapshots"
+    ],
+    "browser": []
+  },
+  "ASSET-PARTS": {
+    "unit": [
+      "[ASSET-PARTS] requires the explicit four distinct recipes with stable mappings and deterministic finite bounded geometry",
+      "[ASSET-PARTS] keeps all three XY pivots at center and points geometry toward three o’clock, with fractional regression time",
+      "[ASSET-PARTS] does not alias variants, retain mutable inputs or release another view’s resources",
+      "[ASSET-PARTS] rejects unsupported IDs, units, versions and component descriptors instead of substituting",
+      "[ASSET-PARTS] rejects bad presentation atomically and leaves the previous poses/geometry unchanged",
+      "[ASSET-PARTS] releases partially constructed materials/maps and the first hand when a later contour fails",
+      "[ASSET-PARTS] proves geometry and mapping checkers reject seeded faults with the valid control still passing",
+      "[ASSET-PARTS] requires the exact inventory and deterministically owns bounded non-color maps per instance"
+    ],
+    "browser": []
+  },
+  "ASSET-MODELS": {
+    "unit": [
+      "[ASSET-MODELS] requires all six actual distinct recipes with finite geometry, component mappings and connected attachments",
+      "[ASSET-MODELS] renders the declared complication roles and their actual hand angles; no-date and no-chronograph controls",
+      "[ASSET-MODELS] keeps retained branding/calendar text separate from derived textures and rejects invalid study/presentation keys",
+      "[ASSET-MODELS] never mutates/disposes borrowed maps, rejects missing and incompatible artwork, and isolates owned materials",
+      "[ASSET-MODELS] seeded identity corruption and disconnected bracelets fail real checkers"
+    ],
+    "browser": []
+  },
+  "ASSET-PROVENANCE": {
+    "unit": [
+      "[ASSET-PROVENANCE] asset registry matches actual sources and bundled dependencies; missing dependency is not a pass"
+    ],
+    "browser": []
+  }
+}
