@@ -1,0 +1,48 @@
+{
+  "registryVersion": "atelier-expanded-assets-1.0.0",
+  "realization": "concept",
+  "dimensionSource": "design-authored",
+  "units": "mm",
+  "catalogIdentity": null,
+  "physicalValidation": "not-assessed",
+  "rightsReview": "unassessed-third-party-marks-and-designs",
+  "sources": [
+    {
+      "path": "src/render/assets/hands.ts",
+      "sha256": "e2356b81de948598761c7e47d0970222699267be047d109366d51e66b39c0274"
+    },
+    {
+      "path": "src/render/assets/materials.ts",
+      "sha256": "959f8a8807137a17a2b6e2fc18085705c3281fd0d6233c1da318452e1eeeb734"
+    },
+    {
+      "path": "src/render/assets/model-recipes.ts",
+      "sha256": "7e9b208149bb495b43fc1860bcc561f7af11bc59c013ca4c4f423c7c68e6c562"
+    },
+    {
+      "path": "src/render/assets/model-studies.ts",
+      "sha256": "933e6c8976de6bd4716ef596e665039980c634611f01c54882675c45648f904f"
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "three",
+      "version": "0.186.0",
+      "license": "MIT",
+      "source": "https://github.com/mrdoob/three"
+    },
+    {
+      "id": "IBM Plex Sans Condensed",
+      "version": "2.0.0",
+      "license": "OFL-1.1",
+      "source": "https://github.com/IBM/plex",
+      "purpose": "disclosed substitute typography"
+    }
+  ],
+  "handRecipeVersion": "atelier-hand-studies-1.0.0",
+  "materialVersion": "atelier-part-finishes-1.0.0",
+  "modelRecipeVersion": "named-model-studies-1.0.0",
+  "modelReferences": "src/render/assets/model-recipes.ts",
+  "verification": "41 full unit and 34 full browser passed; final roundel delta 5 unit and 8 browser passed",
+  "humanAcceptance": "pending"
+}
