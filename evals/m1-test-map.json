@@ -1,0 +1,189 @@
+{
+  "M1-01": {
+    "unit": [
+      "[M1-01] real IDB adapter preserves reference scope and supports brief-only"
+    ],
+    "browser": [
+      "[M1-01][M1-02][M1-03][M1-04][M1-05][M1-06][M1-07][M1-11][M1-12][M1-18] complete private inspiration to portable editable studio"
+    ]
+  },
+  "M1-02": {
+    "unit": [
+      "[M1-02] real edit changes only requested semantics; no-op is unchanged"
+    ],
+    "browser": [
+      "[M1-02][M1-03] actual artwork, markers and exported pixels follow edits and reject a divergent projection",
+      "[M1-01][M1-02][M1-03][M1-04][M1-05][M1-06][M1-07][M1-11][M1-12][M1-18] complete private inspiration to portable editable studio"
+    ]
+  },
+  "M1-03": {
+    "unit": [],
+    "browser": [
+      "[M1-02][M1-03] actual artwork, markers and exported pixels follow edits and reject a divergent projection",
+      "[M1-01][M1-02][M1-03][M1-04][M1-05][M1-06][M1-07][M1-11][M1-12][M1-18] complete private inspiration to portable editable studio"
+    ]
+  },
+  "M1-04": {
+    "unit": [
+      "[M1-04] portable semantic text and markers survive remap and continue editing"
+    ],
+    "browser": [
+      "[M1-01][M1-02][M1-03][M1-04][M1-05][M1-06][M1-07][M1-11][M1-12][M1-18] complete private inspiration to portable editable studio"
+    ]
+  },
+  "M1-05": {
+    "unit": [
+      "[M1-05] unlocked / specifically locked mixed batch / unlock controls"
+    ],
+    "browser": [
+      "[M1-01][M1-02][M1-03][M1-04][M1-05][M1-06][M1-07][M1-11][M1-12][M1-18] complete private inspiration to portable editable studio"
+    ]
+  },
+  "M1-06": {
+    "unit": [
+      "[M1-06] project history interleaves variants, locks, undo, redo and branch with fresh revisions",
+      "[M1-06] removing and restoring references retains bytes across interleaved variant history"
+    ],
+    "browser": [
+      "[M1-01][M1-02][M1-03][M1-04][M1-05][M1-06][M1-07][M1-11][M1-12][M1-18] complete private inspiration to portable editable studio"
+    ]
+  },
+  "M1-07": {
+    "unit": ["[M1-07] copies remap identities and stay independent"],
+    "browser": [
+      "[M1-07] either comparison viewport synchronizes both cameras and presets reset an orbit",
+      "[M1-01][M1-02][M1-03][M1-04][M1-05][M1-06][M1-07][M1-11][M1-12][M1-18] complete private inspiration to portable editable studio"
+    ]
+  },
+  "M1-08": {
+    "unit": [
+      "[M1-08][M1-13][M1-14] backup restores matching missing bytes atomically without losing current edits",
+      "[M1-08] delayed import saves latest intervening edits atomically before switching",
+      "[M1-08] canceled and malformed imports preserve current work and history",
+      "[M1-08] canceled old import cannot unlock another import final commit",
+      "[M1-08] malformed, partial, unknown version and deep imports reject with current work intact"
+    ],
+    "browser": [
+      "[M1-08][M1-09] invalid imports and mislabeled images preserve an editable project"
+    ]
+  },
+  "M1-09": {
+    "unit": [
+      "[M1-09] exact project counts, text and parameter limits have valid controls and just-over rejections",
+      "[M1-09] duplicate identities, unknown commands and nonfinite values reject atomically",
+      "[M1-09] JSON byte, node and nesting limits reject at the boundary without recursion",
+      "[M1-09] a valid maximum-size reference round-trips without base64 stack overflow",
+      "[M1-09] raster corruption and count limits reject; valid controls pass"
+    ],
+    "browser": [
+      "[M1-09] actual raster pipeline normalizes orientation and enforces decode and byte limits",
+      "[M1-08][M1-09] invalid imports and mislabeled images preserve an editable project"
+    ]
+  },
+  "M1-10": {
+    "unit": [
+      "[M1-10] concept schema rejects invented trust and remote resources"
+    ],
+    "browser": []
+  },
+  "M1-11": {
+    "unit": [
+      "[M1-11] sharing excludes all private names, notes, images and links; opted backup restores"
+    ],
+    "browser": [
+      "[M1-01][M1-02][M1-03][M1-04][M1-05][M1-06][M1-07][M1-11][M1-12][M1-18] complete private inspiration to portable editable studio"
+    ]
+  },
+  "M1-12": {
+    "unit": [],
+    "browser": [
+      "[M1-01][M1-02][M1-03][M1-04][M1-05][M1-06][M1-07][M1-11][M1-12][M1-18] complete private inspiration to portable editable studio"
+    ]
+  },
+  "M1-13": {
+    "unit": [
+      "[M1-08][M1-13][M1-14] backup restores matching missing bytes atomically without losing current edits",
+      "[M1-13] remounting a studio preserves unsaved edits and reopens storage safely",
+      "[M1-13] keyboard save during copy cannot acknowledge the wrong project or skip its next edit",
+      "[M1-13] save acknowledgement R cannot mark accepted R+1 saved",
+      "[M1-13] failed first save and import transaction keep backup recovery and subsequent save",
+      "[M1-13] opening storage cannot overwrite an early accepted edit",
+      "[M1-13] abort after asset write rolls back both stores; current work remains exportable"
+    ],
+    "browser": [
+      "[M1-13] native IndexedDB abort is visible and prior state and backup remain recoverable"
+    ]
+  },
+  "M1-14": {
+    "unit": [
+      "[M1-08][M1-13][M1-14] backup restores matching missing bytes atomically without losing current edits",
+      "[M1-14] one corrupt stored project does not hide healthy projects or delete the damaged record",
+      "[M1-14] damaged persisted reference cannot receive a successful save acknowledgement",
+      "[M1-14] missing and corrupted bytes are explicit; share recovery remains available"
+    ],
+    "browser": [
+      "[M1-14][M1-16] context loss stays unready through edits and restoration renders the latest design",
+      "[M1-14] wrong font hash labels fallback and blocks PNG without blocking semantic JSON"
+    ]
+  },
+  "M1-15": {
+    "unit": [
+      "[M1-15] stale import commits neither project and conflict copy preserves stale edits",
+      "[M1-15] IDB version check rejects stale writers; independent project copies save"
+    ],
+    "browser": [
+      "[M1-15] two real tabs reject a stale save and preserve copy/reload choices"
+    ]
+  },
+  "M1-16": {
+    "unit": [],
+    "browser": [
+      "[M1-14][M1-16] context loss stays unready through edits and restoration renders the latest design",
+      "[M1-16][M1-17] real renderer rejects stale work, reuses geometry and matches semantic IDs"
+    ]
+  },
+  "M1-17": {
+    "unit": [
+      "[M1-17] millimeter concept values and exact min/max boundaries",
+      "[M1-17] final mesh bounds match declared case diameter, thickness and lug-to-lug millimeters"
+    ],
+    "browser": [
+      "[M1-16][M1-17] real renderer rejects stale work, reuses geometry and matches semantic IDs"
+    ]
+  },
+  "M1-18": {
+    "unit": [],
+    "browser": [
+      "[M1-01][M1-02][M1-03][M1-04][M1-05][M1-06][M1-07][M1-11][M1-12][M1-18] complete private inspiration to portable editable studio"
+    ]
+  },
+  "M1-19": {
+    "unit": [
+      "[M1-19] seconds-hand centerline crosses the shared pin at every rotation, with old-offset negative control"
+    ],
+    "browser": [
+      "[M1-19] fixed views, numeric editing, keyboard cancellation and narrow layouts",
+      "[M1-19] primary Chromium responsiveness and warmed GPU resource bounds"
+    ]
+  },
+  "M1-20": {
+    "unit": [
+      "[M1-20] real child process failures, timeout and missing executable fail with a passing control",
+      "[M1-20] zero, missing individual test, skipped, failing, errored and malformed reports cannot pass",
+      "[M1-20] browser report errors, skipped tests and retries fail even with optimistic aggregate counts"
+    ],
+    "browser": []
+  },
+  "M1-21": {
+    "unit": [
+      "[M1-21] actual ESLint rejects domain adapter imports, reexports and dynamic imports; allows domain utilities"
+    ],
+    "browser": []
+  },
+  "M1-22": {
+    "unit": [
+      "[M1-22] actual file fingerprints reject stale evidence after source changes"
+    ],
+    "browser": []
+  }
+}

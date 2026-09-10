@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "deterministic": [
+    "BI-01",
+    "BI-02",
+    "BI-03",
+    "BI-04",
+    "BI-05",
+    "BI-06",
+    "BI-07",
+    "BI-08",
+    "BI-09",
+    "BI-10",
+    "BI-11"
+  ],
+  "live": {
+    "case_id": "BI-12",
+    "command": "pnpm research:smoke",
+    "required": true,
+    "assertion": "Public synthetic real provider run returns a nonempty sourced movement/case plan, Namoki retrieval and Alibaba discovery/access status, resource links and bounded usage receipt. Supplier blocks are explicit, provider failure is not success."
+  },
+  "scopeGate": "Full addendum acceptance remains pending; private-image/preview analysis is cut from the time-boxed candidate. Deterministic tests do not close this gap.",
+  "definitions": "docs/plans/BI-1.md"
+}

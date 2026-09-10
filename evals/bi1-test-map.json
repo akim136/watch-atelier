@@ -1,0 +1,98 @@
+{
+  "BI-01": {
+    "unit": [
+      "[BI-01][BI-09][BI-10] canonical snapshot and public brief preserve identity without leaking private inputs",
+      "[BI-01][BI-03] attractive incompatible and hard-target pairs are excluded without redesigning unsupported concepts"
+    ],
+    "browser": [
+      "[BI-01][BI-05][BI-09][BI-10][BI-11] studio research fixture journey selects costs and saves/reopens/exports without leaking private inputs"
+    ]
+  },
+  "BI-02": {
+    "unit": [
+      "[BI-02] exact evidence control rejects fabricated citations, wrong variants, values and image-only dimensions",
+      "[BI-02][BI-03] supported envelope control keeps conflicts, absent specs and datum/tolerance gaps unknown",
+      "[BI-02][BI-04][BI-05][BI-07] fixed-field parser ignores hostile instructions and keeps exact variant stock conflicts and bundle evidence"
+    ],
+    "browser": []
+  },
+  "BI-03": {
+    "unit": [
+      "[BI-02][BI-03] supported envelope control keeps conflicts, absent specs and datum/tolerance gaps unknown",
+      "[BI-01][BI-03] attractive incompatible and hard-target pairs are excluded without redesigning unsupported concepts"
+    ],
+    "browser": []
+  },
+  "BI-04": {
+    "unit": [
+      "[BI-04] exact offer evidence does not inherit other-variant stock, stale prices or supplier badges",
+      "[BI-02][BI-04][BI-05][BI-07] fixed-field parser ignores hostile instructions and keeps exact variant stock conflicts and bundle evidence"
+    ],
+    "browser": []
+  },
+  "BI-05": {
+    "unit": [
+      "[BI-05] MOQ/tier eligibility uses actual purchased packs and separates cash from allocation",
+      "[BI-05] packs, multiples, owned units, order maxima and arithmetic bounds have positive controls",
+      "[BI-05] bundle children appear physically but are purchased once; shipping/tax/minimum spend and currencies stay separate",
+      "[BI-02][BI-04][BI-05][BI-07] fixed-field parser ignores hostile instructions and keeps exact variant stock conflicts and bundle evidence"
+    ],
+    "browser": [
+      "[BI-01][BI-05][BI-09][BI-10][BI-11] studio research fixture journey selects costs and saves/reopens/exports without leaking private inputs"
+    ]
+  },
+  "BI-06": {
+    "unit": [
+      "[BI-06] relevant overview control rejects wrong variants and timestamps from descriptions"
+    ],
+    "browser": []
+  },
+  "BI-07": {
+    "unit": [
+      "[BI-07] loopback authentication rejects cross-origin, missing tokens, private DNS and hostile URL targets",
+      "[BI-02][BI-04][BI-05][BI-07] fixed-field parser ignores hostile instructions and keeps exact variant stock conflicts and bundle evidence"
+    ],
+    "browser": []
+  },
+  "BI-08": {
+    "unit": [
+      "[BI-08][BI-10] cancelled/late research cannot reopen cleared selection or overwrite a newer run",
+      "[BI-08][BI-09] provider arguments isolate work and strict public requests reject private content; failure retains usage"
+    ],
+    "browser": [
+      "[BI-08][BI-11] provider failure and manual evidence keep studio usable and malformed imports preserve research"
+    ]
+  },
+  "BI-09": {
+    "unit": [
+      "[BI-01][BI-09][BI-10] canonical snapshot and public brief preserve identity without leaking private inputs",
+      "[BI-09] manual/imported evidence never promotes fit or reported prices to current observations",
+      "[BI-09][BI-11] research share strips private evidence; personal backup and import remain unverified without fetching",
+      "[BI-08][BI-09] provider arguments isolate work and strict public requests reject private content; failure retains usage"
+    ],
+    "browser": [
+      "[BI-01][BI-05][BI-09][BI-10][BI-11] studio research fixture journey selects costs and saves/reopens/exports without leaking private inputs"
+    ]
+  },
+  "BI-10": {
+    "unit": [
+      "[BI-01][BI-09][BI-10] canonical snapshot and public brief preserve identity without leaking private inputs",
+      "[BI-08][BI-10] cancelled/late research cannot reopen cleared selection or overwrite a newer run"
+    ],
+    "browser": [
+      "[BI-01][BI-05][BI-09][BI-10][BI-11] studio research fixture journey selects costs and saves/reopens/exports without leaking private inputs"
+    ]
+  },
+  "BI-11": {
+    "unit": [
+      "[BI-11] bounded strict research parsing rejects malformed, deep, large and executable payloads",
+      "[BI-09][BI-11] research share strips private evidence; personal backup and import remain unverified without fetching",
+      "[BI-11] immutable research saves and packet-26 capacity are atomic and never evict existing packets",
+      "[BI-11] research storage absence and malformed records preserve healthy saved packets"
+    ],
+    "browser": [
+      "[BI-01][BI-05][BI-09][BI-10][BI-11] studio research fixture journey selects costs and saves/reopens/exports without leaking private inputs",
+      "[BI-08][BI-11] provider failure and manual evidence keep studio usable and malformed imports preserve research"
+    ]
+  }
+}

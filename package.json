@@ -1,0 +1,46 @@
+{
+  "name": "watch-atelier",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.13.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "dev:research": "WATCH_BI_CODEX=1 vite --host 127.0.0.1",
+    "research:smoke": "node --experimental-strip-types scripts/research-smoke.ts",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "vitest run",
+    "test:e2e": "node --experimental-strip-types scripts/e2e.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src tests scripts *.ts *.mjs",
+    "check:boundaries": "eslint src/domain",
+    "verify": "node --experimental-strip-types scripts/verify.ts"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "0.186.0",
+    "zod": "4.6.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@playwright/test": "1.63.0",
+    "@types/node": "^25.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/three": "^0.183.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "eslint": "9.39.5",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.70.0",
+    "vite": "8.2.2",
+    "vitest": "5.0.0",
+    "fake-indexeddb": "^6.2.4",
+    "pngjs": "7.0.0",
+    "@types/pngjs": "6.0.5"
+  }
+}
