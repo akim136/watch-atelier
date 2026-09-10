@@ -9,7 +9,7 @@ not a claim that the full roadmap or all BI-1 requirements are complete.
   from Namoki, Alibaba and supporting sources. Browser-to-local-service research,
   plan selection, partial cost, save/reopen and export completed without page errors.
 - Separate read-only implementation and repair review addressed reported defects.
-- Exact tested runtime/test/configuration/resource digest:
+- Original development runtime/test/configuration/resource digest:
   `25bc08a5460924b392c077628c1ea863b6fc73b8453397c7bbe4b0682781d611`.
 
 Raw local evidence, provider transcripts and machine paths are not published.
@@ -22,6 +22,15 @@ attempt passed the non-browser checks but the sandbox denied the test server's
 local port bind before browser tests ran. Its failed receipt was retained; a
 separate permissioned run passed without source, baseline or assertion changes.
 This rerun did not invoke the live research provider or requalify the asset branches.
+
+Before publication, the evidence script's personal acceptance label was changed
+to `pending owner`. A further complete `pnpm verify` run passed 56 unit/integration
+and 14 Chrome tests plus all other checks. The final public source digest is
+`02b39ab61983da335a9f7111a825398798c4f122310af8207fcab20010f3b793`.
+Application behavior, tests and baselines were not changed by this privacy edit.
+The initial public commit was rebuilt before any push so the personal label does
+not remain in published history. Asset branches share that clean base and remain
+unmerged until the asset work is ready and integration review passes.
 
 ## Open gates
 
