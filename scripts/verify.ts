@@ -40,9 +40,11 @@ try {
   const biMapping = JSON.parse(
     await readFile("evals/bi1-test-map.json", "utf8"),
   ) as Record<string, CaseMapping>;
-  const expected = validateInventory([...cases, ...biCases], {
+  const assetMapping = JSON.parse(await readFile("evals/assets-test-map.json", "utf8")) as Record<string, CaseMapping>;
+  const expected = validateInventory([...cases, ...biCases, "ASSET-GEOMETRY", "ASSET-FONTS", "ASSET-PRESETS", "ASSET-COLORS", "ASSET-PARTS", "ASSET-MODELS", "ASSET-PROVENANCE"], {
     ...mapping,
     ...biMapping,
+    ...assetMapping,
   });
   const commands = [
     ["test", "--reporter=json", `--outputFile=${join(directory, "unit.json")}`],

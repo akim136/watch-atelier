@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><title>Watch Atelier — named model studies</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#151c21;color:#e9e6dd;font:14px system-ui}main{max-width:1280px;margin:auto;padding:24px}h1{font-size:20px;font-weight:500}p{color:#b3bcbf;line-height:1.5}.controls{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:18px 0}label{display:flex;gap:8px;align-items:center}select,button{font:inherit;color:inherit;background:#283338;border:1px solid #66747a;border-radius:4px;padding:7px 10px}select:focus-visible,button:focus-visible{outline:2px solid #dfc78e}canvas{display:block;width:100%;aspect-ratio:4/3}#status{min-height:24px;margin-top:12px}#caption{min-height:36px}
+</style></head><body><main>
+<h1>WATCH ATELIER / NAMED MODEL STUDIES</h1>
+<p>Procedural exterior studies of the selected references. Substitute typography and simplified geometry; no official meshes, physical validation or modeled calibers. These selections are authoring fixtures.</p>
+<div class="controls"><label>Study <select id="study"><option value="gmt-master-ii">Rolex GMT-Master II</option><option value="submariner">Rolex Submariner</option><option value="day-date">Rolex Day-Date</option><option value="daytona">Rolex Daytona</option><option value="royal-oak">Audemars Piguet Royal Oak</option><option value="nautilus">Patek Philippe Nautilus</option></select></label>
+<label>View <select id="view"><option>Front</option><option>Oblique</option><option>Profile</option><option>Detail</option></select></label><button id="export">Save study PNG</button></div>
+<div id="caption"></div><canvas width="1600" height="1200" aria-label="Rendered watch study"></canvas><div id="status" role="status">Preparing local font and renderer…</div>
+</main><script type="module" src="./brand-preview.ts"></script></body></html>

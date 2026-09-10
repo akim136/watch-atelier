@@ -1,5 +1,26 @@
 # Watch Atelier
 
+## Demo asset lab (local development)
+
+The complete committed asset workstream is retained alongside the unchanged studio.
+With `pnpm dev` running, open:
+
+- [Original watches and color studies](http://127.0.0.1:5173/tests/assets/preview.html)
+- [Four hand sets and five material studies](http://127.0.0.1:5173/tests/assets/parts.html)
+- [Six named-model exterior studies](http://127.0.0.1:5173/tests/assets/brand.html)
+
+These are interactive rendering previews with orbit/view controls and PNG capture,
+not new canonical saved-watch types. Brand studies are approximate, unofficial and
+not physically qualified; third-party rights remain unassessed. Legacy preview
+rendering is isolated under `src/render/assets/legacy/`; the studio's renderer,
+state, storage and sharing behavior are preserved. Fixtures are development-only,
+not included as public deployment routes by the current production build.
+
+Run the full additive asset browser suite separately with
+`WATCH_ASSET_PORT=5188 pnpm exec playwright test --config tests/assets/playwright.config.ts --headed`.
+`pnpm verify` retains all original studio/research gates and adds the 26 asset unit
+checks. These checks do not turn rendering studies into editable product integration.
+
 A local-first watch-design studio with revision-bound build research. Design an
 original concept, edit its dial, inspect it in 3D, compare variants, and investigate
 real parts without silently changing the watch.

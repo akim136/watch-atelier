@@ -1,0 +1,184 @@
+{
+  "format": "watch-atelier-asset-registry",
+  "version": 1,
+  "template": "atelier-39-v1",
+  "recipeVersion": "1.1.0",
+  "materialsVersion": "atelier-looks-1.1.0",
+  "environmentVersion": "atelier-softboxes-1.0.0",
+  "cameraVersion": "atelier-views-1.0.0",
+  "realization": "concept",
+  "dimensionSource": "design-authored",
+  "units": "mm",
+  "catalogIdentity": null,
+  "physicalValidation": "not-assessed",
+  "originality": "original procedural authorship; external rights clearance not asserted",
+  "sources": [
+    {
+      "path": "src/render/assets/legacy/dial.ts",
+      "sha256": "b9b1b3ecf8a1204393ad011773e85278a0163a4042a7c2d7f3201a5314a7a06d",
+      "originalPath": "src/render/dial.ts",
+      "originalSha256": "d8bb19faa308f1bb6a7de539295a09eb32814db00314b341dbdeb335ad267c3c"
+    },
+    {
+      "path": "src/render/assets/legacy/geometry.ts",
+      "sha256": "61cbbcfde6d5ccd4ab98f27a5f379d7605e17f1e39e2acc8b2351086116b2ed9",
+      "originalPath": "src/render/geometry.ts",
+      "originalSha256": "f28d62b3ca6d467e6a03990e61523ef35f98f3b81a8000dc85eba62b664052b8"
+    },
+    {
+      "path": "src/render/assets/legacy/materials.ts",
+      "sha256": "19eea03f796b77db70d89ed0fe40b41d2d99490f27fe7f3764195dee87e105c3",
+      "originalPath": "src/render/materials.ts",
+      "originalSha256": "19eea03f796b77db70d89ed0fe40b41d2d99490f27fe7f3764195dee87e105c3"
+    },
+    {
+      "path": "src/render/assets/legacy/ownership.ts",
+      "sha256": "ec34711e4d245ef5c7a0e9cf9849f60c30bf1f0cb3f62d3c0f029f2a1838cec0",
+      "originalPath": "src/render/ownership.ts",
+      "originalSha256": "ec34711e4d245ef5c7a0e9cf9849f60c30bf1f0cb3f62d3c0f029f2a1838cec0"
+    },
+    {
+      "path": "src/render/assets/legacy/presets.ts",
+      "sha256": "fff8eae7143adbfb410fb0aca21a4af4370dd11a96037382183e8db9da624836",
+      "originalPath": "src/render/presets.ts",
+      "originalSha256": "a02e5be5bb15e3cc8991434bd5854e715b93439164c07596b830f8fe48d595f6"
+    },
+    {
+      "path": "src/render/assets/legacy/recipe.ts",
+      "sha256": "9240205c5b5ae0837339dc35b28c1e8c94b0dba7ecb8ec5a09850228d3af3711",
+      "originalPath": "src/render/recipe.ts",
+      "originalSha256": "9240205c5b5ae0837339dc35b28c1e8c94b0dba7ecb8ec5a09850228d3af3711"
+    },
+    {
+      "path": "src/render/assets/legacy/resources.ts",
+      "sha256": "4f0faf7bb0bfc2462d3823da0b93bc6b8338d5598f0a0a2d71dbc56fa50ff58b",
+      "originalPath": "src/render/resources.ts",
+      "originalSha256": "99ce9eb5fbe8388a9961baa3a0032f80d9e24c007e0084b225c0ff47e20dedef"
+    },
+    {
+      "path": "src/render/assets/legacy/studio.ts",
+      "sha256": "7c7320ed254a9f8ebabafde6698cc1727d56926657e3c28330b232ce8181e36e",
+      "originalPath": "src/render/studio.ts",
+      "originalSha256": "7c7320ed254a9f8ebabafde6698cc1727d56926657e3c28330b232ce8181e36e"
+    },
+    {
+      "path": "src/render/assets/legacy/viewport.ts",
+      "sha256": "0083b3814ff665df4b3b1a2f6955a8c147151e42ae8810e9c366fd05168c264a",
+      "originalPath": "src/render/viewport.ts",
+      "originalSha256": "c483b723144082d5e1e234c55025677418f559c42a6b380301b291ab29a44d4b"
+    },
+    {
+      "path": "src/render/assets/legacy/watch.ts",
+      "sha256": "825ff630ae708ffd4612d22987e0a7c7b08f109f2609154f820f376d38bb96a5",
+      "originalPath": "src/render/watch.ts",
+      "originalSha256": "a825bf1749d49dc032ac8ace9a34a3fb8b1cc4633a0f74a012c05b2b4e445101"
+    }
+  ],
+  "sourceContentHash": "c812f697380137f8150cf5afe3de635752d4f31ee5df8ab9214c8e069f22c4b6",
+  "dependencies": [
+    {
+      "id": "three",
+      "version": "0.186.0",
+      "license": "MIT",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/mrdoob/three.js"
+      },
+      "packageManifestSha256": "ab4ff6950aab522dfe6980f19914a5eb2cadb689a36c6c44f4d3869c5e46dc89"
+    },
+    {
+      "id": "zod",
+      "version": "4.6.1",
+      "license": "MIT",
+      "source": {
+        "type": "git",
+        "url": "git+https://github.com/colinhacks/zod.git"
+      },
+      "packageManifestSha256": "33913eb1aeb7d4438526ce43b8933316c3da9f3e60904f2ffa234c0135042fde"
+    },
+    {
+      "id": "ibm-plex-sans-condensed-regular",
+      "version": "2.0.0",
+      "license": "OFL-1.1",
+      "path": "public/fonts/IBMPlexSansCondensed-Regular.woff2",
+      "sha256": "a71a56e516751883cb7877112d39f9c13b92c2dc15caaf00277b7f9d941d673a",
+      "provenance": "docs/assets/font-provenance.json"
+    },
+    {
+      "id": "ibm-plex-sans-condensed-medium",
+      "version": "2.0.0",
+      "license": "OFL-1.1",
+      "path": "public/fonts/IBMPlexSansCondensed-Medium.woff2",
+      "sha256": "eb93da02ace70c39e4c4e811b8b02dd5f5d4804d186202d6668bea60d22f57d0",
+      "provenance": "docs/assets/font-provenance.json"
+    },
+    {
+      "id": "ibm-plex-license",
+      "license": "OFL-1.1",
+      "path": "public/fonts/OFL.txt",
+      "sha256": "d741e57d5f865e294df801f96b7b5161a88b211df65887e4358d271c9fc5fb4f",
+      "originalSha256": "37784b44044a4ffd9256702b7c0982c37e5c8887ba90c6dca0479aea93dc898d",
+      "note": "Existing main license text retained; equals upstream license after whitespace normalization."
+    }
+  ],
+  "fontSourceRevision": "bb3ab6404e1881ea286f8742dc839e09057db6dd",
+  "assets": [
+    {
+      "id": "atelier-39-v1",
+      "kind": "procedural-watch-template",
+      "source": "src/render/assets/legacy/geometry.ts",
+      "roles": [
+        "case",
+        "bezel",
+        "hands",
+        "crystal",
+        "strap"
+      ],
+      "originalSource": "src/render/geometry.ts"
+    },
+    {
+      "id": "atelier-semantic-dial",
+      "kind": "semantic-dial-projection",
+      "source": "src/render/assets/legacy/dial.ts",
+      "roles": [
+        "dial",
+        "text",
+        "markers",
+        "track"
+      ],
+      "originalSource": "src/render/dial.ts"
+    },
+    {
+      "id": "atelier-looks-1.1.0",
+      "kind": "appearance-library",
+      "source": "src/render/assets/legacy/materials.ts",
+      "count": 7,
+      "originalSource": "src/render/materials.ts"
+    },
+    {
+      "id": "atelier-softboxes-1.0.0",
+      "kind": "procedural-environment",
+      "source": "src/render/assets/legacy/studio.ts",
+      "externalImages": false,
+      "originalSource": "src/render/studio.ts"
+    },
+    {
+      "id": "atelier-starters-1.0.0",
+      "kind": "typed-edit-presets",
+      "source": "src/render/assets/legacy/presets.ts",
+      "presets": [
+        "instrument",
+        "gallery",
+        "coastal"
+      ],
+      "originalSource": "src/render/presets.ts"
+    }
+  ],
+  "verification": {
+    "report": "docs/assets/INTEGRATION.md",
+    "humanVisualAcceptance": "pending",
+    "fullApplicationIntegration": "pending",
+    "relocation": "Mechanical namespace/import-only relocation; original hashes retained. Main renderer is unchanged."
+  },
+  "originalSourceContentHash": "17ea713549f32b61f6c993a9a299a493ed97c0ae9ca9fde113ac3dab61ee874c"
+}
