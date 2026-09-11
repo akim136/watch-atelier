@@ -1,0 +1,41 @@
+{
+  "ASSET-PROVENANCE": {
+    "unit": ["[ASSET-PROVENANCE] rectangular registry binds actual sources and dependencies and rejects a missing dependency"],
+    "browser": []
+  },
+  "M1-17": {
+    "unit": [
+      "[M1-17] exact original/reference recipes and deterministic dimensions, attachments and pivots"
+    ],
+    "browser": []
+  },
+  "M1-02": {
+    "unit": [
+      "[M1-02][M1-16] semantic edits update the intended projection without rebuilding case or mutating another view",
+      "[M1-02] retained Roman sequence and orientation remain explicit editable pattern data"
+    ],
+    "browser": []
+  },
+  "M1-16": {
+    "unit": [
+      "[M1-02][M1-16] semantic edits update the intended projection without rebuilding case or mutating another view",
+      "[M1-09][M1-16] missing, stale and wrongly mapped artwork reject; a valid retry works",
+      "[M1-16] partial constructor failure releases prepared materials and geometry, then a valid retry works",
+      "[M1-16] staged finish failure is atomic and disposal preserves borrowed maps and other instances",
+      "[M1-16] case and bracelet finishes are independent; all editable visual differences are labeled custom"
+    ],
+    "browser": []
+  },
+  "M1-09": {
+    "unit": [
+      "[M1-09][M1-16] missing, stale and wrongly mapped artwork reject; a valid retry works"
+    ],
+    "browser": []
+  },
+  "M1-20": {
+    "unit": [
+      "[M1-20] seeded wrong identity and disconnected attachment fail actual checks"
+    ],
+    "browser": []
+  }
+}

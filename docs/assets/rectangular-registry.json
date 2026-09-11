@@ -1,0 +1,129 @@
+{
+  "format": "watch-atelier-rectangular-assets",
+  "version": 1,
+  "recipeVersion": "atelier-rectangular-1.0.0",
+  "materialVersion": "atelier-rectangular-finishes-1.0.0",
+  "realization": "concept",
+  "units": "mm",
+  "canonicalSaveSupport": "pending-main-integration",
+  "physicalValidation": "not-assessed",
+  "geometrySources": [
+    {
+      "path": "src/render/assets/rectangular-recipes.ts",
+      "sha256": "0857422151e14de7246be5fd7d11e1ec22e93e4ea4dbe2110744e311a1ae1cb8"
+    },
+    {
+      "path": "src/render/assets/rectangular-watch.ts",
+      "sha256": "61f745c386fb20d228dbdb4085271319a2382928c928a4412240e609c41d9389"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "src/render/assets/materials.ts",
+      "sha256": "959f8a8807137a17a2b6e2fc18085705c3281fd0d6233c1da318452e1eeeb734"
+    },
+    {
+      "path": "src/render/assets/legacy/studio.ts",
+      "sha256": "7c7320ed254a9f8ebabafde6698cc1727d56926657e3c28330b232ce8181e36e"
+    },
+    {
+      "path": "src/render/assets/legacy/resources.ts",
+      "sha256": "4f0faf7bb0bfc2462d3823da0b93bc6b8338d5598f0a0a2d71dbc56fa50ff58b"
+    },
+    {
+      "path": "public/fonts/IBMPlexSansCondensed-Regular.woff2",
+      "sha256": "a71a56e516751883cb7877112d39f9c13b92c2dc15caaf00277b7f9d941d673a"
+    },
+    {
+      "path": "public/fonts/IBMPlexSansCondensed-Medium.woff2",
+      "sha256": "eb93da02ace70c39e4c4e811b8b02dd5f5d4804d186202d6668bea60d22f57d0"
+    },
+    {
+      "path": "src/domain/model.ts",
+      "sha256": "0e0e4d21ec126bf5662dd451e4851e2bbe20b639307963107c51ca1d15fab3f0",
+      "ownership": "main builder; read-only rendering input dependency"
+    },
+    {
+      "path": "src/domain/appearance.ts",
+      "sha256": "7d5a320cd9c2e59c8cc01c13b1ac7ce2673a621422d2da344a188688e8958370",
+      "ownership": "main builder; read-only rendering input dependency"
+    }
+  ],
+  "libraries": [
+    {
+      "id": "three",
+      "version": "0.186.0",
+      "license": "MIT",
+      "source": "https://github.com/mrdoob/three.js"
+    },
+    {
+      "id": "zod",
+      "version": "4.6.1",
+      "license": "MIT",
+      "source": "https://github.com/colinhacks/zod"
+    },
+    {
+      "id": "ibm-plex-sans-condensed",
+      "version": "2.0.0",
+      "license": "OFL-1.1",
+      "provenance": "docs/assets/font-provenance.json",
+      "substitution": "Used for all text; does not reproduce exact brand typography."
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "atelier-rectangle-01",
+      "collection": "original",
+      "dimensionsMm": {
+        "width": 28,
+        "height": 36,
+        "thickness": 7.6,
+        "dialWidth": 22,
+        "dialHeight": 28,
+        "strapWidth": 20
+      },
+      "dimensionSource": "design-authored",
+      "catalogIdentity": null,
+      "reference": null,
+      "rightsReview": "original procedural authorship; external rights clearance not asserted"
+    },
+    {
+      "assetId": "cartier-tank-wsta0106",
+      "collection": "reference-study",
+      "dimensionsMm": {
+        "width": 25.5,
+        "height": 33.7,
+        "thickness": 6.6,
+        "dialWidth": 20.2,
+        "dialHeight": 26.4,
+        "strapWidth": 19
+      },
+      "dimensionSource": "published exterior dimensions; dial, strap and all construction detail are authored approximations",
+      "catalogIdentity": null,
+      "reference": {
+        "brand": "Cartier",
+        "model": "Tank Must",
+        "reference": "WSTA0106",
+        "powerSource": "quartz (source fact only)",
+        "url": "https://int.cartier.com/en/collections/watches/choose-your-watch/by-bracelet-or-straps/interchangeable-bracelets/interchangeable-metal/wsta0106-tank-must-de-cartier-watch.html",
+        "textReviewed": "2026-09-10",
+        "photographInspection": "unavailable: official image403"
+      },
+      "rightsReview": "not-assessed; brand name is editable reference text, not a license or clearance assertion"
+    }
+  ],
+  "semanticRoles": [
+    "case",
+    "bezel",
+    "dial",
+    "hands",
+    "crystal",
+    "strap",
+    "text",
+    "indices",
+    "track"
+  ],
+  "authoredBy": "Watch Atelier procedural asset workstream",
+  "externalImageAssets": [],
+  "verification": "See RECTANGULAR.md and local candidate evidence; main canonical integration and human acceptance pending"
+}
